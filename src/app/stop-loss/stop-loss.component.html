@@ -1,0 +1,78 @@
+<ng-template #popContentsStop>
+  <span style="display: flex; top: -19px; width: max-content; left: 127px;"
+    >Access to Customer & Underwriting Reports</span
+  >
+</ng-template>
+<div
+  *ngFor="let account of addedAccountList; let i = index"
+  class="permission-table"
+>
+  <div
+    class="col-md-6"
+    id="accountDiversifiedBenefitsInd{{ account.accountId }}"
+  >
+    <label
+      for="diversifiedBenefits{{ account.accountId }}"
+      class="custom-control custom-checkbox"
+    >
+      <input
+        type="radio"
+        class="custom-control-input"
+        id="diversifiedBenefits{{ account.accountId }}"
+        name="diversifiedBenefitsCheckbox{{ account.accountId }}"
+        [disabled]="account.dvbFlag !== 'Y'"
+        [checked]="diversifiedBenefitsIndicatorVal === 'Y'"
+        (change)="diversifiedBenefitsCheckbox($event, i)"
+      />
+
+      <span
+        class="custom-control-label"
+        *ngIf="account.dvbFlag === 'Y'; else dvbEdit"
+      >
+        <a href="javascript:void(0);" (click)="diversifiedBenefitsPopUp(i)">
+          DIVERSIFIED_BENEFITS
+        </a>
+        <button
+          type="button"
+          class="tooltip-button mt-0"
+          popoverTitle="Permission"
+          placement="right"
+          [popover]="popContentsStop"
+          [outsideClick]="true"
+        ></button>
+      </span>
+      <ng-template #dvbEdit>
+        <span class="custom-control-label">
+          <span> DIVERSIFIED_BENEFITS </span>
+          <button
+            type="button"
+            class="tooltip-button mt-0"
+            [outsideClick]="true"
+            popoverTitle="Permission"
+            popover="popContentsStop"
+          ></button>
+        </span>
+      </ng-template>
+    </label>
+  </div>
+</div>
+<!--End here-->
+
+<emp-modal
+  #diversifiedBenefitsModal
+  [title]="'Features: Life and Disability'"
+  [largeModal]="true"
+  (cancel)="resetDiversifiedBenefitsCheckbox($event)"
+>
+  <div class="modal-body" id="lnd_modal_body">
+    <popup-stop-loss
+      [dvbReportingIndVal]="dvbReportingIndVal"
+      [serverdvbBillingIndVal]="serverdvbBillingIndVal"
+      [serverdvbReportingIndVal]="serverdvbReportingIndVal"
+      [diversifiedBenefitsIndicatorVal]="diversifiedBenefitsIndicatorVal"
+      [diversifiedBenefitsModal]="diversifiedBenefitsModal"
+      [dvbBillingIndVal]="dvbBillingIndVal"
+      (output)="resetDVB($event)"
+    ></popup-stop-loss>
+  </div>
+</emp-modal>

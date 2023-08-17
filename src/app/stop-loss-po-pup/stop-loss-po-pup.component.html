@@ -1,0 +1,61 @@
+<ng-template #popContent1>
+  <span style="display: flex; top: -19px; width: max-content; left: 127px;"
+    >Access to Customer & Underwriting Reports</span
+  >
+</ng-template>
+<ng-template #popContent2>
+  <span style="display: flex; width: max-content; left: 127px;"
+    >Access to Self-billing & Payment screens</span
+  >
+</ng-template>
+
+<div class="row mt-1 pl-2">
+  <label for="DVBReporting" class="custom-control custom-checkbox">
+    <input
+      type="radio"
+      class="custom-control-input"
+      id="DVBReporting"
+      name="DVBCheckbox"
+      value="Reporting"
+      [checked]="serverdvbReportingIndVal === 'Y'"
+      (change)="dvbReportingChange($event)"
+    />
+    <span class="custom-control-label"
+      >Reporting
+      <button
+        type="button"
+        class="tooltip-button mt-0"
+        [outsideClick]="true"
+        placement="right"
+        popoverTitle="Permission"
+        [popover]="popContent1"
+      ></button>
+    </span>
+  </label>
+</div>
+<div class="row mt-1 pl-2">
+  <label for="DVBBilling" class="custom-control custom-checkbox">
+    <input
+      type="radio"
+      class="custom-control-input"
+      id="DVBBilling"
+      name="DVBCheckbox"
+      [checked]="serverdvbBillingIndVal === 'Y'"
+      value="Billing"
+      (change)="dvbBillingChange($event)"
+    />
+    <span class="custom-control-label"
+      >Billing
+      <button
+        type="button"
+        class="tooltip-button mt-0"
+        [outsideClick]="true"
+        placement="right"
+        popoverTitle="Permission"
+        [popover]="popContent2"
+      ></button>
+    </span>
+  </label>
+</div>
+
+<!--End here-->

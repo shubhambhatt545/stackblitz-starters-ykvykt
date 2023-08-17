@@ -1,0 +1,41 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" [config]="{backdrop: 'static'}" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" [class.modal-lg]="largeModal" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="formSavedModalLabel">
+          <!-- <div class="alert alert-success alert-inline">{{title}}</div> -->
+          <div>{{title}}</div>
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cancelClick($event)" [hidden]="hideCloseBtn">
+          <span aria-hidden="true">&#10005;</span>
+        </button>
+      </div>
+
+      <ng-content></ng-content>
+  
+       <!-- <div class="modal-footer">
+           <div style="margin:auto">
+        <div class="" *ngIf="prmyBtn">
+          <button  type="button" class="btn btn-primary btn-block" (click)="saveClick($event)" [disabled]="disablePrmyBtn">{{prmyBtn}}</button>
+        </div>
+        <div class="" *ngIf="secdBtn">
+          <button  type="button" class="btn btn-secondary btn-block" (click)="cancelClick($event)" [disabled]="disableSecdBtn">{{secdBtn}}</button>
+        </div>
+       </div> 
+      </div>     -->
+         <div class="modal-footer form-buttons">
+        <div class="col-lg-12 col-md-12 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-6 col-md-6" *ngIf="prmyBtn">
+              <button  type="button" class="btn btn-primary float-right" (click)="saveClick($event)" [disabled]="disablePrmyBtn">{{prmyBtn}}</button>
+            </div>
+            <div class="col-lg-6 col-6 col-md-6" *ngIf="secdBtn">
+              <button  type="button" class="btn btn-secondary" (click)="cancelClick($event)" [disabled]="disableSecdBtn">{{secdBtn}}</button>
+            </div>
+        </div>
+      </div>
+    </div>    
+    </div>
+  </div>
+</div>
