@@ -16,7 +16,7 @@
       class="custom-control custom-checkbox"
     >
       <input
-        type="radio"
+        type="checkbox"
         class="custom-control-input"
         id="diversifiedBenefits{{ account.accountId }}"
         name="diversifiedBenefitsCheckbox{{ account.accountId }}"
@@ -30,7 +30,7 @@
         *ngIf="account.dvbFlag === 'Y'; else dvbEdit"
       >
         <a href="javascript:void(0);" (click)="diversifiedBenefitsPopUp(i)">
-          DIVERSIFIED_BENEFITS
+          Stop Loss
         </a>
         <button
           type="button"
@@ -43,7 +43,7 @@
       </span>
       <ng-template #dvbEdit>
         <span class="custom-control-label">
-          <span> DIVERSIFIED_BENEFITS </span>
+          <span>Stop Loss </span>
           <button
             type="button"
             class="tooltip-button mt-0"
@@ -69,7 +69,6 @@
       [dvbReportingIndVal]="dvbReportingIndVal"
       [serverdvbBillingIndVal]="serverdvbBillingIndVal"
       [serverdvbReportingIndVal]="serverdvbReportingIndVal"
-      [diversifiedBenefitsIndicatorVal]="diversifiedBenefitsIndicatorVal"
       [diversifiedBenefitsModal]="diversifiedBenefitsModal"
       [dvbBillingIndVal]="dvbBillingIndVal"
       (output)="resetDVB($event)"
