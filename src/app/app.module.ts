@@ -7,10 +7,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { EmpModalComponent } from './emp-modal/emp-modal.component';
-import { StopLossPoPupComponent } from './stop-loss-po-pup/stop-loss-po-pup.component';
-
 import { StopLossComponent } from './stop-loss/stop-loss.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -22,8 +20,10 @@ import { StopLossComponent } from './stop-loss/stop-loss.component';
     ModalModule.forRoot(),
     BsDropdownModule,
     ButtonsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  declarations: [EmpModalComponent, StopLossComponent, StopLossPoPupComponent],
+  declarations: [StopLossComponent],
   bootstrap: [StopLossComponent],
 })
 export class AppModule {}

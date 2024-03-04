@@ -1,77 +1,69 @@
-<ng-template #popContentsStop>
-  <span style="display: flex; top: -19px; width: max-content; left: 127px;"
-    >Access to Customer & Underwriting Reports</span
-  >
-</ng-template>
-<div
-  *ngFor="let account of addedAccountList; let i = index"
-  class="permission-table"
->
-  <div
-    class="col-md-6"
-    id="accountDiversifiedBenefitsInd{{ account.accountId }}"
-  >
-    <label
-      for="diversifiedBenefits{{ account.accountId }}"
-      class="custom-control custom-checkbox"
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      formControlName="Email"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Enter email"
+    />
+    <div
+      class="text-danger"
+      *ngIf="!profileForm.valid && profileForm.controls['Email'].touched"
     >
-      <input
-        type="checkbox"
-        class="custom-control-input"
-        id="diversifiedBenefits{{ account.accountId }}"
-        name="diversifiedBenefitsCheckbox{{ account.accountId }}"
-        [disabled]="account.dvbFlag !== 'Y'"
-        [checked]="diversifiedBenefitsIndicatorVal === 'Y'"
-        (change)="diversifiedBenefitsCheckbox($event, i)"
-      />
-
-      <span
-        class="custom-control-label"
-        *ngIf="account.dvbFlag === 'Y'; else dvbEdit"
-      >
-        <a href="javascript:void(0);" (click)="diversifiedBenefitsPopUp(i)">
-          Stop Loss
-        </a>
-        <button
-          type="button"
-          class="tooltip-button mt-0"
-          popoverTitle="Permission"
-          placement="right"
-          [popover]="popContentsStop"
-          [outsideClick]="true"
-        ></button>
-      </span>
-      <ng-template #dvbEdit>
-        <span class="custom-control-label">
-          <span>Stop Loss </span>
-          <button
-            type="button"
-            class="tooltip-button mt-0"
-            [outsideClick]="true"
-            popoverTitle="Permission"
-            popover="popContentsStop"
-          ></button>
-        </span>
-      </ng-template>
-    </label>
+      Required Field
+    </div>
   </div>
-</div>
-<!--End here-->
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      formControlName="Password"
+      id="exampleInputPassword1"
+      placeholder="Password"
+    />
+  </div>
+  <div
+    class="text-danger"
+    *ngIf="!profileForm.valid && profileForm.controls['Password'].touched"
+  >
+    Required Field
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">
+    Submit
+  </button>
+  <button class="btn btn-default" (click)="opt()">Opt-Out</button>
+</form>
 
-<emp-modal
-  #diversifiedBenefitsModal
-  [title]="'Features: Life and Disability'"
-  [largeModal]="true"
-  (cancel)="resetDiversifiedBenefitsCheckbox($event)"
+<div
+  [class]="submit || optout ? 'alert-success' : 'alert-danger'"
+  class="alert alert-dismissible d-flex align-items-center fade show"
+  *ngIf="submit || optout"
 >
-  <div class="modal-body" id="lnd_modal_body">
-    <popup-stop-loss
-      [dvbReportingIndVal]="dvbReportingIndVal"
-      [serverdvbBillingIndVal]="serverdvbBillingIndVal"
-      [serverdvbReportingIndVal]="serverdvbReportingIndVal"
-      [diversifiedBenefitsModal]="diversifiedBenefitsModal"
-      [dvbBillingIndVal]="dvbBillingIndVal"
-      (output)="resetDVB($event)"
-    ></popup-stop-loss>
+  <i
+    [class]="
+      submit || optout ? 'bi-check-circle-fill' : 'bi-exclamation-octagon-fill'
+    "
+  ></i>
+
+  <strong class="mx-2" *ngIf="submit || optout">Success!</strong>
+  <div *ngIf="submit || optout">Your message has been sent successfully.</div>
+  <strong class="mx-2" *ngIf="error">Error!</strong>
+  <div *ngIf="error">
+    A problem has been occurred while submitting your data.
   </div>
-</emp-modal>
+
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    (click)="close()"
+  ></button>
+</div>
