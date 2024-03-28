@@ -1,69 +1,104 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input
-      type="email"
+<!-- <form [formGroup]="multiSelectForm" (ngSubmit)="onSubmit()">
+  <div class="form-group" formArrayName="selectedOptions">
+    <label for="selectedOptions">Select Options (Multiple):</label>
+    <select
       class="form-control"
-      formControlName="Email"
-      id="exampleInputEmail1"
-      aria-describedby="emailHelp"
-      placeholder="Enter email"
-    />
-    <div
-      class="text-danger"
-      *ngIf="!profileForm.valid && profileForm.controls['Email'].touched"
+      id="selectedOptions"
+      multiple
+      (change) ="addOption($event.target)"
     >
-      Required Field
+      <option *ngFor="let option of options" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+    <div
+      *ngIf="selectedOptions.invalid && selectedOptions.touched"
+      class="alert alert-danger"
+    >
+      Please select at least one option.
     </div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      formControlName="Password"
-      id="exampleInputPassword1"
-      placeholder="Password"
-    />
+  <!-- <div class="d-flex flex-wrap gap-2">
+    <button
+      type="button"
+      class="btn btn-primary"
+      *ngFor="let option of options; let i = index"
+      (click)="addOption(option)"
+    >
+      {{ option.label }}
+    </button>
+  </div> -->
+<!-- <div class="list-group">
+    <div
+      class="list-group-item list-group-item-action"
+      *ngFor="let control of selectedOptions.controls; let i = index"
+    >
+      <span class="badge bg-primary rounded-pill">{{ i + 1 }}</span>
+      {{ showValue(control.value) }}
+      <button
+        type="button"
+        class="btn btn-sm btn-danger float-end"
+        (click)="removeOption(i)"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
   </div>
+  <button type="submit" class="btn btn-success mt-2">Submit</button>
+</form> -->
+
+<!-- <form [formGroup]="multiSelectForm">
+  <div formArrayName="selectedOptions">
+    <select class="form-control" (change)="toggleSelection($event)">
+      <option
+        *ngFor="let option of options"
+        [value]="option.label"
+        [selected]="isSelected(option.value)"
+      >
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+  <div class="list-group">
   <div
-    class="text-danger"
-    *ngIf="!profileForm.valid && profileForm.controls['Password'].touched"
+    class="list-group-item list-group-item-action"
+    *ngFor="let control of selectedOptions.controls; let i = index"
   >
-    Required Field
+    <span class="badge bg-primary rounded-pill">{{ i + 1 }}</span>
+    {{ showValue(control) }}
+    <button
+      type="button"
+      class="btn btn-sm btn-danger float-end"
+      (click)="removeOption(i)"
+    >
+      <i class="bi bi-x-lg"></i>
+    </button>
   </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!profileForm.valid">
-    Submit
-  </button>
-  <button class="btn btn-default" (click)="opt()">Opt-Out</button>
-</form>
-
-<div
-  [class]="submit || optout ? 'alert-success' : 'alert-danger'"
-  class="alert alert-dismissible d-flex align-items-center fade show"
-  *ngIf="submit || optout"
->
-  <i
-    [class]="
-      submit || optout ? 'bi-check-circle-fill' : 'bi-exclamation-octagon-fill'
-    "
-  ></i>
-
-  <strong class="mx-2" *ngIf="submit || optout">Success!</strong>
-  <div *ngIf="submit || optout">Your message has been sent successfully.</div>
-  <strong class="mx-2" *ngIf="error">Error!</strong>
-  <div *ngIf="error">
-    A problem has been occurred while submitting your data.
-  </div>
-
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    (click)="close()"
-  ></button>
 </div>
+</form> -->
+
+<form [formGroup]="multiSelectForm">
+  <div>
+    <div class="selected-option form-group input-group">
+      <input formArrayName="selectedOptions" type="text"  (change)="search(selectedOptions.value)" (click)="selecttoggel()" >
+      <div class="input-group-apend">
+        <span
+          class="input-group-text"
+          (click)="removeOption()"
+          id="basic-addon1"
+          >X</span
+        >
+      </div>
+    </div>
+    <select
+      class="form-control"
+      multiple
+      [hidden]="!select"
+      (change)="onSelect($event)"
+    >
+      <option *ngFor="let option of options" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+</form>
